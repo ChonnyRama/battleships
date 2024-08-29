@@ -40,6 +40,3 @@ export const Ship = (coord1, coord2) => {
     getShipSpaces,
   }
 }
-
-const newShip = Ship([0, 0], [0, 2])
-newShip

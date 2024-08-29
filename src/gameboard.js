@@ -1,20 +1,6 @@
 import { Ship } from './ship'
 
 export const Gameboard = () => {
-  //gameboard should be 10x10
-  const board = []
-  const createBoard = () => {
-    while (board.length !== 0) {
-      board.splice(0, 1)
-    }
-    for (let i = 0; i < 10; i++) {
-      board.push([])
-      for (let j = 0; j < 10; j++) {
-        board[i].push([i, j])
-      }
-    }
-  }
-
   const occupiedSpaces = []
   const ships = []
   const placeShip = (coord1, coord2) => {
@@ -62,7 +48,43 @@ export const Gameboard = () => {
     }
   }
 
+  const getShips = () => [...ships]
+
   const getOccupied = () => [...occupiedSpaces]
 
-  return { placeShip, getOccupied }
+  const shotsFired = [
+    {
+      hit: [],
+    },
+    {
+      missed: [],
+    },
+  ]
+
+  const receiveAttack = (coord) => {
+    if (
+      !shotsFired[1].missed.some(
+        (space) => space[0] === coord[0] && space[1] === coord[1],
+      )
+    ) {
+      for (const ship of ships) {
+        if (
+          ship
+            .getShipSpaces()
+            .some((space) => space[0] === coord[0] && space[1] === coord[1])
+        ) {
+          ship.hit()
+          shotsFired[0].hit.push(coord)
+        }
+      }
+      return shotsFired[1].missed.push(coord)
+    }
+    throw new Error('shot has already been fired')
+  }
+
+  const allSunk = () => {
+    return ships.every((ship) => ship.isSunk())
+  }
+
+  return { placeShip, receiveAttack, allSunk, getOccupied, getShips }
 }

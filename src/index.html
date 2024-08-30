@@ -7,8 +7,55 @@
 </head>
 <body>
     <div data-game-container>
-        <div class="player-grid" data-player1-grid></div>
-        <div class="player-grid" data-player2-grid></div>
+        <div class="player-container">
+            <div class="coords attack">
+                <label for="player1-x">X:</label>
+                <input type="number" name="player1-x">
+                <label for="player1-y">Y:</label>
+                <input type="number" name="player1-y">
+                <button>Attack</button>
+            </div>
+            <div class="player-grid" data-player1-grid></div>
+            <span class="player1-name current-turn">Player 1</span>
+            <div class="coords placement-from">
+                <label for="player1-x1">From: X:</label>
+                <input type="number" name="player1-x1">
+                <label for="player1-y1">Y:</label>
+                <input type="number" name="player1-y1">
+            </div>
+            <div class="coords placement-to">
+                <label for="player1-x2">To: X:</label>
+                <input type="number" name="player1-x2">
+                <label for="player1-y2">Y:</label>
+                <input type="number" name="player1-y2">
+            </div>
+            <button>Submit</button>
+            
+        </div>
+        <div class="player-container">
+            <div class="coords attack">
+                <label for="player2-x">X:</label>
+                <input type="number" name="player2-x">
+                <label for="player2-y">Y:</label>
+                <input type="number" name="player2-y">
+                <button>Attack</button>
+            </div>
+            <div class="player-grid" data-player2-grid></div>
+            <span class="player2-name">Computer</span>
+            <div class="coords placement-from">
+                <label for="player2-x1">From: X:</label>
+                <input type="number" name="player2-x1">
+                <label for="player2-y1">Y:</label>
+                <input type="number" name="player2-y1">
+            </div>
+            <div class="coords placement-to">
+                <label for="player2-x2">To: X:</label>
+                <input type="number" name="player2-x2">
+                <label for="player2-y2">Y:</label>
+                <input type="number" name="player2-y2">
+            </div>
+            <button>Submit</button>
+        </div>
     </div>
     
 </body>

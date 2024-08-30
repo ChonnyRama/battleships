@@ -1,0 +1,60 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+[data-game-container] {
+    display: flex;
+    width: 100%;
+    height: 60%;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    gap: 10px;
+}
+
+.player-grid { 
+    display: grid;
+    grid-template-columns: repeat(10,1fr);
+    grid-template-rows: repeat(10,1fr);
+    width:500px;    
+    height:500px;
+    border:2px solid black;
+}
+
+.coords input {
+    width: 25px;
+}
+
+.cell {
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.current-turn {
+    text-align: center;
+    text-shadow: rgba(85,0,255,0.87) 0px 0px 6px;
+
+}
+
+.current-turn::after {
+    content: "'s Turn"
+}

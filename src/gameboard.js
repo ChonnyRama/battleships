@@ -5,24 +5,38 @@ export const Gameboard = () => {
   const ships = []
   const placeShip = (coord1, coord2) => {
     if (
-      !occupiedSpaces.some(
+      occupiedSpaces.some(
         (space) => space[0] === coord1[0] && space[1] === coord1[1],
-      ) &&
-      !occupiedSpaces.some(
+      ) ||
+      occupiedSpaces.some(
         (space) => space[0] === coord2[0] && space[1] === coord2[1],
-      ) &&
-      Math.max(coord1[0], coord1[0]) < 10 &&
-      Math.max(coord2[0], coord2[0]) < 10 &&
-      Math.max(coord1[0], coord1[0]) >= 0 &&
-      Math.max(coord2[0], coord2[0]) >= 0 &&
-      (coord1[0] === coord2[0] || coord1[1] === coord2[1])
+      )
     ) {
-      const newShip = Ship(coord1, coord2)
-      updateOccupied(coord1, coord2, newShip)
-      ships.push(newShip)
-    } else {
-      throw new Error('invalid ship palcement')
+      throw new Error('space is already occupied')
     }
+
+    if (
+      Math.abs(coord1[0] - coord2[0]) > 4 ||
+      Math.abs(coord2[1] - coord1[1]) > 4
+    ) {
+      throw new Error('ship too large')
+    }
+    if (
+      Math.max(coord1[0], coord1[1]) >= 10 ||
+      Math.max(coord2[0], coord2[1]) >= 10 ||
+      Math.min(coord1[0], coord1[1]) < 0 ||
+      Math.min(coord2[0], coord2[1]) < 0
+    ) {
+      throw new Error('out of bounds of grid')
+    }
+
+    if (coord1[0] !== coord2[0] && coord1[1] !== coord2[1]) {
+      throw new Error('ship must be vertical or horizontal')
+    }
+
+    const newShip = Ship(coord1, coord2)
+    updateOccupied(coord1, coord2, newShip)
+    ships.push(newShip)
   }
 
   const updateOccupied = (coord1, coord2, ship) => {
@@ -86,5 +100,14 @@ export const Gameboard = () => {
     return ships.every((ship) => ship.isSunk())
   }
 
-  return { placeShip, receiveAttack, allSunk, getOccupied, getShips }
+  const getShotsFired = () => shotsFired[0].hit.concat(shotsFired[1].missed)
+
+  return {
+    placeShip,
+    receiveAttack,
+    allSunk,
+    getOccupied,
+    getShips,
+    getShotsFired,
+  }
 }

@@ -77,9 +77,9 @@ export const Gameboard = () => {
 
   const receiveAttack = (coord) => {
     if (
-      !shotsFired[1].missed.some(
-        (space) => space[0] === coord[0] && space[1] === coord[1],
-      )
+      !getShotsFired().some((space) => {
+        return space[0] === coord[0] && space[1] === coord[1]
+      })
     ) {
       for (const ship of ships) {
         if (
@@ -99,8 +99,12 @@ export const Gameboard = () => {
   }
 
   const allSunk = () => {
-    return ships.every((ship) => ship.isSunk())
+    return getShips().every((ship) => ship.isSunk())
   }
+
+  const getShotsHit = () => [...shotsFired[0].hit]
+
+  const getShotsMissed = () => [...shotsFired[1].missed]
 
   const getShotsFired = () => shotsFired[0].hit.concat(shotsFired[1].missed)
 
@@ -111,5 +115,7 @@ export const Gameboard = () => {
     getOccupied,
     getShips,
     getShotsFired,
+    getShotsHit,
+    getShotsMissed,
   }
 }

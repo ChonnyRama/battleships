@@ -49,10 +49,7 @@ export const DomController = () => {
       renderBoard()
       player2.computerPlacement()
 
-      // currentPlayer = player2
-
-      // renderBoard()
-      // currentPlayer = player1
+      renderBoard()
     }
   })
 
@@ -68,6 +65,7 @@ export const DomController = () => {
       const cellX = Number(cell.dataset.x)
       const cellY = Number(cell.dataset.y)
       if (
+        // currentPlayer === player1 &&
         currentPlayer
           .getBoard()
           .getOccupied()
@@ -77,10 +75,53 @@ export const DomController = () => {
       ) {
         cell.style.backgroundColor = 'blue'
       }
+      if (
+        currentPlayer
+          .getBoard()
+          .getShotsHit()
+          .some((space) => {
+            return space[0] === cellX && space[1] === cellY
+          })
+      ) {
+        cell.style.backgroundColor = 'red'
+      }
+      if (
+        currentPlayer
+          .getBoard()
+          .getShotsMissed()
+          .some((space) => {
+            return space[0] === cellX && space[1] === cellY
+          })
+      ) {
+        cell.textContent = 'X'
+      }
+    }
+    currentPlayer === player1
+      ? (currentPlayer = player2)
+      : (currentPlayer = player1)
+  }
+
+  const gameWinner = () => {
+    const winBox = document.querySelector('.winning-player')
+    if (player1.getBoard().allSunk()) {
+      winBox.textContent = 'Player2 Wins!'
+    } else if (player2.getBoard().allSunk()) {
+      winBox.textContent = 'Player1 Wins!'
     }
   }
 
+  // const resetBoard = () => {
+  //   const resetButton = ()
+  // }
+
   playButton.addEventListener('click', () => {
+    // playerBoards.forEach((board)=> {
+    //   while (board.firstChild) {
+    //     board.removeChild(board.firstChild)
+    //   }
+    // })
+    // populateBoards()
+
     const toHide = document.querySelectorAll('.player1, .player2')
     for (const element of toHide) {
       element.classList.add('hidden')
@@ -91,10 +132,19 @@ export const DomController = () => {
     playerGrids.forEach((grid) => {
       grid.addEventListener('click', (e) => {
         if (e.target.classList.contains('cell')) {
-          if (e.target.classList.contains('.player2-cell')) {
+          if (e.target.classList.contains('player2-cell')) {
             const attackX = Number(e.target.dataset.x)
-            const attackY = Number(e.target.dataset.Y)
-            player1.attack([attackX, attackY], player2.getBoard())
+            const attackY = Number(e.target.dataset.y)
+            try {
+              player1.attack([attackX, attackY], player2.getBoard())
+              gameWinner()
+            } catch (error) {
+              return console.log(error)
+            }
+            renderBoard()
+            player2.attack([0, 0], player1.getBoard())
+            renderBoard()
+            gameWinner()
           }
         }
       })

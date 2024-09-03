@@ -11,7 +11,7 @@ export const Player = (name, isComputer = true) => {
 
   const attack = (coord, enemyBoard) => {
     if (!computer) {
-      return enemyBoard.recieveAttack(coord)
+      return enemyBoard.receiveAttack(coord)
     } else {
       let randomCoord
       do {
@@ -20,11 +20,11 @@ export const Player = (name, isComputer = true) => {
           Math.floor(Math.random() * 10),
         ]
       } while (
-        enemyBoard.getShotsfired().some((space) => {
+        enemyBoard.getShotsFired().some((space) => {
           return space[0] === randomCoord[0] && space[1] === randomCoord[1]
         })
       )
-      return enemyBoard.recieveAttack(randomCoord)
+      return enemyBoard.receiveAttack(randomCoord)
     }
   }
 

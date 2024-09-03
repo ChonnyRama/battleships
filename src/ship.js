@@ -17,7 +17,7 @@ export const Ship = (coord1, coord2) => {
   }
 
   const isSunk = () => {
-    if (hits >= shipLength) {
+    if (getHits() >= shipLength) {
       sunk = true
       return sunk
     }

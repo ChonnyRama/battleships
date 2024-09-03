@@ -52,6 +52,8 @@ body {
     border: 1px solid #ccc;
     box-sizing: border-box;
     position: relative;
+    text-align: center;
+    
 }
 
 .cell[data-x="0"]::before {

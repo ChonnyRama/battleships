@@ -6,24 +6,25 @@
     <title>Document</title>
 </head>
 <body>
+    <button class="game-start">Start game</button>
     <div data-game-container>
         <div class="player-container">
-            <div class="coords attack">
+            <div class="coords attack player1">
                 <label for="player1-x">X:</label>
                 <input type="number" id="player1-x-attack" name="player1-x-attack">
                 <label for="player1-y">Y:</label>
                 <input type="number" id="player1-y-attack" name="player1-y-attack">
-                <button>Attack</button>
+                <button class="attack-submit player2">Attack</button>
             </div>
             <div class="player-grid" data-player1-grid></div>
             <span class="player1-name current-turn">Player 1</span>
-            <div class="coords placement-from">
+            <div class="coords placement-from player1">
                 <label for="player1-x1">From: X:</label>
                 <input type="number" id="player1-x1" name="player1-x1">
                 <label for="player1-y1">Y:</label>
                 <input type="number" id="player1-y1" name="player1-y1">
             </div>
-            <div class="coords placement-to">
+            <div class="coords placement-to player1">
                 <label for="player1-x2">To: X:</label>
                 <input type="number" id="player1-x2" name="player1-x2">
                 <label for="player1-y2">Y:</label>
@@ -33,22 +34,22 @@
             
         </div>
         <div class="player-container">
-            <div class="coords attack">
+            <div class="coords attack player2">
                 <label for="player2-x">X:</label>
                 <input type="number" id="player2-x-attack" name="player2-x-attack">
                 <label for="player2-y">Y:</label>
                 <input type="number" id="player2-y-attack" name="player2-y-attack">
-                <button>Attack</button>
+                <button class="attack-submit player2">Attack</button>
             </div>
             <div class="player-grid" data-player2-grid></div>
             <span class="player2-name">Computer</span>
-            <div class="coords placement-from">
+            <div class="coords placement-from player2" >
                 <label for="player2-x1">From: X:</label>
                 <input type="number" id="player2-x1" name="player2-x1">
                 <label for="player2-y1">Y:</label>
                 <input type="number" id="player2-y1" name="player2-y1">
             </div>
-            <div class="coords placement-to">
+            <div class="coords placement-to player2">
                 <label for="player2-x2">To: X:</label>
                 <input type="number" id="player2-x2" name="player2-x2">
                 <label for="player2-y2">Y:</label>

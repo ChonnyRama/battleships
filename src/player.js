@@ -1,6 +1,6 @@
 import { Gameboard } from './gameboard'
 
-export const Player = (name, isComputer = false) => {
+export const Player = (name, isComputer = true) => {
   const playerName = name
   const computer = isComputer
   const board = Gameboard()
@@ -27,5 +27,25 @@ export const Player = (name, isComputer = false) => {
       return enemyBoard.recieveAttack(randomCoord)
     }
   }
-  return { getPlayerName, getBoard, isComputerPlayer, attack }
+
+  const computerPlacement = () => {
+    const yFrom = Math.floor(Math.random() * 10)
+    const xFrom = Math.floor(Math.random() * 10)
+    const yTo = Math.floor(Math.random() * 10)
+    const xTo = Math.floor(Math.random() * 10)
+    try {
+      getBoard().placeShip([xFrom, yFrom], [xTo, yTo])
+    } catch (error) {
+      console.log(error)
+      computerPlacement()
+    }
+  }
+
+  return {
+    getPlayerName,
+    getBoard,
+    isComputerPlayer,
+    attack,
+    computerPlacement,
+  }
 }

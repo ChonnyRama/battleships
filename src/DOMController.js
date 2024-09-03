@@ -2,6 +2,7 @@ import { Player } from './player'
 
 export const DomController = () => {
   const playerBoards = document.querySelectorAll('.player-grid')
+  const playButton = document.querySelector('.game-start')
 
   const populateBoards = () => {
     playerBoards.forEach((board) => {
@@ -11,6 +12,12 @@ export const DomController = () => {
           cell.dataset.x = i
           cell.dataset.y = j
           cell.classList.add('cell')
+          if (board.hasAttribute('data-player1-grid')) {
+            cell.classList.add('player1-cell')
+          } else {
+            cell.classList.add('player2-cell')
+          }
+          cell.style.cursor = 'pointer'
           board.appendChild(cell)
         }
       }
@@ -33,9 +40,19 @@ export const DomController = () => {
       const yTo = Number(document.querySelector('#player1-x2').value)
       const xTo = Number(document.querySelector('#player1-y2').value)
 
-      console.log(player1.getBoard().getOccupied())
-      player1.getBoard().placeShip([xFrom, yFrom], [xTo, yTo])
+      try {
+        player1.getBoard().placeShip([xFrom, yFrom], [xTo, yTo])
+      } catch (error) {
+        return error
+      }
+
       renderBoard()
+      player2.computerPlacement()
+
+      // currentPlayer = player2
+
+      // renderBoard()
+      // currentPlayer = player1
     }
   })
 
@@ -62,6 +79,27 @@ export const DomController = () => {
       }
     }
   }
+
+  playButton.addEventListener('click', () => {
+    const toHide = document.querySelectorAll('.player1, .player2')
+    for (const element of toHide) {
+      element.classList.add('hidden')
+    }
+    const playerGrids = document.querySelectorAll(
+      '[data-player1-grid],[data-player2-grid]',
+    )
+    playerGrids.forEach((grid) => {
+      grid.addEventListener('click', (e) => {
+        if (e.target.classList.contains('cell')) {
+          if (e.target.classList.contains('.player2-cell')) {
+            const attackX = Number(e.target.dataset.x)
+            const attackY = Number(e.target.dataset.Y)
+            player1.attack([attackX, attackY], player2.getBoard())
+          }
+        }
+      })
+    })
+  })
 
   return {}
 }

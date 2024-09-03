@@ -89,9 +89,11 @@ export const Gameboard = () => {
         ) {
           ship.hit()
           shotsFired[0].hit.push(coord)
+          return true
         }
       }
-      return shotsFired[1].missed.push(coord)
+      shotsFired[1].missed.push(coord)
+      return false
     }
     throw new Error('shot has already been fired')
   }
